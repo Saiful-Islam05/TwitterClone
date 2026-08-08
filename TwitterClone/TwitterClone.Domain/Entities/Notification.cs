@@ -6,7 +6,55 @@ using System.Threading.Tasks;
 
 namespace TwitterClone.Domain.Entities
 {
-    internal class Notification
+    public class Notification
     {
+        private Guid _id;
+        private Guid _recipientId;
+        private Guid _senderId;
+        private string _type;
+        private string _content;
+        private bool _isRead;
+        private DateTime _createdAt;
+
+
+        public Guid Id
+        {
+            get { return _id; }
+        }
+
+        public Guid RecipientId
+        {
+            get { return _recipientId; }
+        }
+
+        public Guid SenderId
+        {
+            get { return _senderId; }
+        }
+
+        public string Type
+        {
+            get { return _type; }
+        }
+
+        //If Content need.So we can have a setter for it
+        public string Content
+        {
+            get { return _content; }
+            set { _content = value; }
+        }
+
+        //It will change after read so we need to have a setter for it
+        public bool IsRead
+        {
+            get { return _isRead; }
+            set { _isRead = value; }
+        }
+
+        public DateTime CreatedAt
+        {
+            get { return _createdAt; }
+        }
+
     }
 }
