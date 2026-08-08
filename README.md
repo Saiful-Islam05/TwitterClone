@@ -1,14 +1,19 @@
 # TwitterClone
-A Twitter-like social media application built with ASP.NET Core.
 
-## 🚧 Status
-Project just started — currently setting up the Domain layer 
-(entities only, no features implemented yet).
+A Twitter-like backend project built with ASP.NET Core (CPS Academy course assignment).
 
-## 🛠️ Tech Stack
-- ASP.NET Core
-- Entity Framework Core
-- SQL Server
+## Completed
+
+Created 8 domain model classes:
+
+- `User` – account, login, profile
+- `Tweet` – post content
+- `Like` – like a tweet
+- `Retweet` – retweet a post
+- `Follow` – follow relationship between users
+- `Notification` – notifications
+- `Message` – direct messages
+- `Bookmark` – saved tweets
 
 ## 👤 Author
 Saiful Islam
