@@ -15,7 +15,11 @@ namespace TwitterClone.Domain.Entities
         private DateTime _sentAt;
         private bool _isRead;
 
-        
+        public Message()
+        {
+            _id = Guid.NewGuid();
+        }
+
         public Guid Id
         {
             get { return _id; }
@@ -23,11 +27,13 @@ namespace TwitterClone.Domain.Entities
         public Guid SenderId
         {
             get { return _senderId; }
+            set { _senderId = value; }
         }
 
         public Guid ReceiverId
         {
             get { return _receiverId; }
+            set { _receiverId = value; }
         }
 
         // If Content will Edit/Delete feature.
@@ -40,6 +46,7 @@ namespace TwitterClone.Domain.Entities
         public DateTime SentAt
         {
             get { return _sentAt; }
+            set { _sentAt = value; }
         }
 
         // to Show Read receipt. So we can have a setter for it.

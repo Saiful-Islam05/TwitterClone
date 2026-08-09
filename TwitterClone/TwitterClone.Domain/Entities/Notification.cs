@@ -17,6 +17,12 @@ namespace TwitterClone.Domain.Entities
         private DateTime _createdAt;
 
 
+        public Notification()
+        {
+            _id = Guid.NewGuid();
+        }
+
+
         public Guid Id
         {
             get { return _id; }
@@ -25,16 +31,19 @@ namespace TwitterClone.Domain.Entities
         public Guid RecipientId
         {
             get { return _recipientId; }
+            set { _recipientId = value; }
         }
 
         public Guid SenderId
         {
             get { return _senderId; }
+            set { _senderId = value; }
         }
 
         public string Type
         {
             get { return _type; }
+            set { _type = value; }
         }
 
         //If Content need.So we can have a setter for it
@@ -54,6 +63,7 @@ namespace TwitterClone.Domain.Entities
         public DateTime CreatedAt
         {
             get { return _createdAt; }
+            set { _createdAt = value; }
         }
 
     }

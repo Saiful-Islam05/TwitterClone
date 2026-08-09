@@ -12,6 +12,11 @@ namespace TwitterClone.Domain.Entities
         private Guid _authorId;
         private string _content;
 
+
+        public Tweet()
+        {
+            _id = Guid.NewGuid();
+        }
         public Guid Id
         {
             get { return _id; }
@@ -20,6 +25,7 @@ namespace TwitterClone.Domain.Entities
         public Guid AuthorId
         {
             get { return _authorId; }
+            set { _authorId = value; }
         }
 
         public string Content
