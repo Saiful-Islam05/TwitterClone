@@ -6,40 +6,40 @@ using System.Threading.Tasks;
 
 namespace TwitterClone.Domain.Entities
 {
-    public class Message
+    public class Message : BaseEntity
     {
-        private Guid _id;
+        public Message(string content) : base(Guid.NewGuid())
+        {
+            _content = content;
+        }
+
         private Guid _senderId;
         private Guid _receiverId;
         private string _content;
         private DateTime _sentAt;
         private bool _isRead;
-
-        
-        public Guid Id
-        {
-            get { return _id; }
-        }
+      
         public Guid SenderId
         {
             get { return _senderId; }
+            set { _senderId = value; }
         }
 
         public Guid ReceiverId
         {
             get { return _receiverId; }
+            set { _receiverId = value; }
         }
 
-        // If Content will Edit/Delete feature.
         public string Content
         {
             get { return _content; }
             set { _content = value; }
         }
-
         public DateTime SentAt
         {
             get { return _sentAt; }
+            set { _sentAt = value; }
         }
 
         // to Show Read receipt. So we can have a setter for it.

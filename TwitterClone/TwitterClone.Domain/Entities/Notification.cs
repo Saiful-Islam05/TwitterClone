@@ -6,54 +6,37 @@ using System.Threading.Tasks;
 
 namespace TwitterClone.Domain.Entities
 {
-    public class Notification
+    public class Notification : BaseEntity
     {
-        private Guid _id;
-        private Guid _recipientId;
-        private Guid _senderId;
+       
+        private Guid _userId;
         private string _type;
-        private string _content;
+        private string _message;
         private bool _isRead;
-        private DateTime _createdAt;
 
-
-        public Guid Id
+        public Notification(string notificationType) : base(Guid.NewGuid())
         {
-            get { return _id; }
+            _type = notificationType;
         }
-
-        public Guid RecipientId
+        public Guid UserId
         {
-            get { return _recipientId; }
+            get { return _userId; }
+            set { _userId = value; }
         }
-
-        public Guid SenderId
-        {
-            get { return _senderId; }
-        }
-
         public string Type
         {
             get { return _type; }
+            set { _type = value; }
         }
-
-        //If Content need.So we can have a setter for it
-        public string Content
+        protected string Message
         {
-            get { return _content; }
-            set { _content = value; }
+            get { return _message; }
+            set { _message = value; }
         }
-
-        //It will change after read so we need to have a setter for it
         public bool IsRead
         {
             get { return _isRead; }
             set { _isRead = value; }
-        }
-
-        public DateTime CreatedAt
-        {
-            get { return _createdAt; }
         }
 
     }
