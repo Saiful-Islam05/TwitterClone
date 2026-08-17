@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace TwitterClone.Domain.Entities
 {
+<<<<<<< HEAD
     public abstract class Notification : BaseEntity
     {
        
@@ -33,12 +34,54 @@ namespace TwitterClone.Domain.Entities
             get { return _message; }
             set { _message = value; }
         }
+=======
+    public class Notification
+    {
+        private Guid _id;
+        private Guid _recipientId;
+        private Guid _senderId;
+        private string _type;
+        private string _content;
+        private bool _isRead;
+        private DateTime _createdAt;
+
+
+        public Guid Id
+        {
+            get { return _id; }
+        }
+
+        public Guid RecipientId
+        {
+            get { return _recipientId; }
+        }
+
+        public Guid SenderId
+        {
+            get { return _senderId; }
+        }
+
+        public string Type
+        {
+            get { return _type; }
+        }
+
+        //If Content need.So we can have a setter for it
+        public string Content
+        {
+            get { return _content; }
+            set { _content = value; }
+        }
+
+        //It will change after read so we need to have a setter for it
+>>>>>>> e8c22baae033aff7016f7940437a69c312b6baaa
         public bool IsRead
         {
             get { return _isRead; }
             set { _isRead = value; }
         }
 
+<<<<<<< HEAD
         public override string DescribeRecord()
         {
             var baseRecord = base.DescribeRecord();
@@ -53,5 +96,12 @@ namespace TwitterClone.Domain.Entities
         */
         public abstract string GetMessage();
      
+=======
+        public DateTime CreatedAt
+        {
+            get { return _createdAt; }
+        }
+
+>>>>>>> e8c22baae033aff7016f7940437a69c312b6baaa
     }
 }
