@@ -8,16 +8,28 @@ namespace TwitterClone.Domain.Entities
 {
     public class FriendRequestNotification : Notification
     {
-        public FriendRequestNotification(Guid commentByUserId) : base("FriendRequest")
+        public FriendRequestNotification(Guid requestedByUserId) : base("FriendRequest")
         {
-            FriendRequestByUserId = commentByUserId;
+            RequestedByUserId = requestedByUserId;
         }
 
-        public Guid FriendRequestByUserId { get; set; }
+        public Guid RequestedByUserId { get; set; }
 
         public void AddMessage(string message)
         {
             Message = message;
+        }
+
+        public override string DescribeRecord()
+        {
+            var baseRecord = base.DescribeRecord();
+            return $"{baseRecord}, RequestedByUserId: {RequestedByUserId}";
+        }
+
+        public override string GetMessage()
+        {
+            
+            return $"From FriendRequest, User with Id {RequestedByUserId} sent you a friend request";
         }
 
 
