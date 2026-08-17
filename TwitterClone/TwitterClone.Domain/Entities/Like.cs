@@ -6,22 +6,15 @@ using System.Threading.Tasks;
 
 namespace TwitterClone.Domain.Entities
 {
-    public class Like
+    public class Like : BaseEntity
     {
-        private Guid _id;
+        public Like() : base(Guid.NewGuid())
+        {
+
+        }
+
         private Guid _userId;
         private Guid _tweetId;
-        private DateTime _likedAt;
-
-        public Like()
-        {
-            _id = Guid.NewGuid();
-        }
-
-        public Guid Id
-        {
-            get { return _id; }
-        }
 
         public Guid UserId
         {
@@ -35,10 +28,5 @@ namespace TwitterClone.Domain.Entities
             set { _tweetId = value; }
         }
 
-        public DateTime LikedAt
-        {
-            get { return _likedAt; }
-            set { _likedAt = value; }
-        }
     }
 }

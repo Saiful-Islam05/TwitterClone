@@ -6,39 +6,26 @@ using System.Threading.Tasks;
 
 namespace TwitterClone.Domain.Entities
 {
-    public class Follow
+    public class Follow : BaseEntity
     {
-        private Guid _id;
+        public Follow() : base(Guid.NewGuid())
+        {
+
+        }
+        
         private Guid _followerId;
         private Guid _followingId;
-        private DateTime _followedAt;
-
-
-        public Follow()
-        {
-            _id = Guid.NewGuid();
-        }
-        public Guid Id
-        {
-            get { return _id; }
-        }
-
+      
         public Guid FollowerId
         {
             get { return _followerId; }
             set { _followerId = value; }
         }
-
         public Guid FollowingId
         {
             get { return _followingId; }
             set { _followingId = value; }
         }
-
-        public DateTime FollowedAt
-        {
-            get { return _followedAt; }
-            set { _followedAt = value; }
-        }
+     
     }
 }
