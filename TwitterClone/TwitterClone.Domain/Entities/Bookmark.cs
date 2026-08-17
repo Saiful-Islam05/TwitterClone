@@ -6,31 +6,25 @@ using System.Threading.Tasks;
 
 namespace TwitterClone.Domain.Entities
 {
-    internal class Bookmark
+    public class Bookmark : BaseEntity
     {
-        private Guid _id;
-        private Guid _userId;
-        private Guid _tweetId;
-        private DateTime _bookmarkedAt;
-
-        public Guid Id
+        public Bookmark() : base(Guid.NewGuid())
         {
-            get { return _id; }
+
         }
 
+        private Guid _userId;
+        private Guid _tweetId;
+        
         public Guid UserId
         {
             get { return _userId; }
+            set { _userId = value; }
         }
-
         public Guid TweetId
         {
             get { return _tweetId; }
-        }
-
-        public DateTime BookmarkedAt
-        {
-            get { return _bookmarkedAt; }
+            set { _tweetId = value; }
         }
     }
 }

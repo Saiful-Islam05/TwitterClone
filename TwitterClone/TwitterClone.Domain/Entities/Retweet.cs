@@ -6,31 +6,34 @@ using System.Threading.Tasks;
 
 namespace TwitterClone.Domain.Entities
 {
-    public class Retweet
+    public class Retweet : BaseEntity
     {
-        private Guid _id;
+        public Retweet() : base(Guid.NewGuid())
+        {
+            
+        }
+
         private Guid _userId;
         private Guid _tweetId;
-        private DateTime _retweetedAt;
-
-        public Guid Id
-        {
-            get { return _id; }
-        }
+        private string _comment;
+       
 
         public Guid UserId
         {
             get { return _userId; }
-        }
+            set { _userId = value; }
 
+        }
         public Guid TweetId
         {
             get { return _tweetId; }
+            set { _tweetId = value; }
         }
 
-        public DateTime RetweetedAt
+        public string Comment
         {
-            get { return _retweetedAt; }
+            get { return _comment; }
+            set { _comment = value; }
         }
     }
 }

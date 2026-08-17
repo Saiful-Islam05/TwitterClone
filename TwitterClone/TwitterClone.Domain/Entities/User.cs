@@ -6,35 +6,35 @@ using System.Threading.Tasks;
 
 namespace TwitterClone.Domain.Entities
 {
-    internal class User
+    internal class User : BaseEntity
     {
-        // Unique identifier for the user
-        private Guid _id;
 
-        //Private fields for user properties
+        public User(string email) : base(Guid.NewGuid())
+        {
+            _email = email;
+        }
+
+
         private string _firstName;
         private string _lastName;
         private string _email;
-
-        // Constructor to initialize the user with a unique identifier
-        public User()
-        {
-            _id = Guid.NewGuid();
-        }
-
-        // Public properties to access user information
-
-        public Guid Id
-        {
-            get { return _id; }
-        }
-
-        // Public property for the user's first name
+       
         public string FirstName
         {
             get { return _firstName; }
             set { _firstName = value; }
         }
+        public string LastName
+        {
+            get { return _lastName; }
+            set { _lastName = value; }
+        }
+        public string Email
+        {
+            get { return _email; }
+            set { _email = value; }
+        }
+       
 
     }
 }
