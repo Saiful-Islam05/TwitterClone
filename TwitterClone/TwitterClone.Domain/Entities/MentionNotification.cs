@@ -23,7 +23,7 @@ namespace TwitterClone.Domain.Entities
 
         public override string GetMessage()
         {
-            return $"User with Id {MentionedByUserId} mentioned you in a post";
+            return $"From MentionNotificatiion, User with Id {MentionedByUserId} mentioned you in a post";
         }
     }
 }
