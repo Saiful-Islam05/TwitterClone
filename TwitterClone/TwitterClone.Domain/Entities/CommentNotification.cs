@@ -1,0 +1,28 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace TwitterClone.Domain.Entities
+{
+    public class CommentNotification : Notification
+    {
+        public CommentNotification(Guid commentByUserId) : base("Comment")
+        {
+            CommentByUserId = commentByUserId;
+        }
+
+        public Guid CommentByUserId { get; set; }
+
+        public void AddMessage(string message)
+        {
+            Message = message;
+        }
+
+        public override string GetMessage()
+        {
+            return $"From CommentNotification class User with ID {CommentByUserId} Comment your post";
+        }
+    }
+}
