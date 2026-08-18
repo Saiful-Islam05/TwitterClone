@@ -6,27 +6,18 @@ using System.Threading.Tasks;
 
 namespace TwitterClone.Domain.Entities
 {
-    internal class User
+    public class User : BaseEntity,IFollowable,INotifiable
     {
-        // Unique identifier for the user
-        private Guid _id;
 
         //Private fields for user properties
         private string _firstName;
         private string _lastName;
         private string _email;
 
-        // Constructor to initialize the user with a unique identifier
-        public User()
+       
+        public User() :base(Guid.NewGuid())
         {
-            _id = Guid.NewGuid();
-        }
-
-        // Public properties to access user information
-
-        public Guid Id
-        {
-            get { return _id; }
+            
         }
 
         // Public property for the user's first name
@@ -34,6 +25,51 @@ namespace TwitterClone.Domain.Entities
         {
             get { return _firstName; }
             set { _firstName = value; }
+        }
+
+        public string LastName
+        {
+            get { return _lastName; }
+            set { _lastName = value; }
+        }
+
+        public string Email
+        {
+            get { return _email; }
+            set { _email = value; }
+        }
+
+        private List<Guid> _followers = new List<Guid>();
+        public List<Guid> _inCommingNotification = new List<Guid>();
+
+        public override string DescribeRecord()
+        {
+            var baseRecord = base.DescribeRecord();
+            return $"{baseRecord},FirstName: {FirstName},LastName: {LastName},Email: {Email}";
+        }
+
+        public void Follow(Guid userId)
+        {
+            if(!_followers.Contains(userId))
+            {
+                _followers.Add(userId);
+            }
+        }
+
+        public void Unfollow(Guid userId) 
+        {
+            if (_followers.Contains(userId))
+            {
+                _followers.Remove(userId);
+            }
+        }
+
+        public void AddNotification(Guid notificationId)
+        {
+            if(!_inCommingNotification.Contains(notificationId))
+            {
+                _inCommingNotification.Add(notificationId);
+            }
         }
 
     }
