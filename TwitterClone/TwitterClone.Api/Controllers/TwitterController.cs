@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using TwitterClone.Api.Attributes;
 
 namespace TwitterClone.Api.Controllers
 {
@@ -31,6 +32,7 @@ namespace TwitterClone.Api.Controllers
             return Ok(response);
         }
 
+        [Tweet]
         [HttpGet("app-info")]
         public IActionResult GetAppInfo()
         {

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace TwitterClone.Api.Controllers
 {
@@ -6,17 +7,86 @@ namespace TwitterClone.Api.Controllers
     [ApiController]
     public class UsersController: ControllerBase
     {
+        public UsersController()
+        {
+
+        }
+
+
         [HttpGet]
+        [Authorize]
         public IActionResult GetUsers()
         {
-            var users = new[]
-            {
-                new { Id = 1, Name = "Saiful Islam", Handle = "@saiful" },
-                new { Id = 2, Name = "Abdul Aziz", Handle = "@aziz" },
-                new { Id = 3, Name = "Saifa Islam", Handle = "@saifa" }
-            };
 
-            return Ok(users);
+            return Ok(new List<object>
+            { 
+                new
+                {
+                    UserId = Guid.NewGuid(),
+                    UserName = "user1",
+                },
+                new
+                {
+                    UserId = Guid.NewGuid(),
+                    UserName = "user2",
+                },
+            });
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public IActionResult CreateUser()
+        {
+            return Ok(new
+            {
+                UserId = Guid.NewGuid(),
+                UserName = "newuser",
+            });
+        }
+
+        // /api/users/{id}
+        [HttpGet("{id}")]
+        public IActionResult GetUserById([FromRoute] Guid id)
+        {
+            return Ok(new
+            {
+                UserId = id,
+                UserName = "user" + id.ToString(),
+            });
+        }
+
+        // PUT/api/users/{id}
+        [HttpPut("{id}")]
+        public IActionResult UpdateUser([FromRoute] Guid id)
+        {
+            return Ok(new
+            {
+                UserId = id,
+                UserName = "updateuser" + id.ToString()
+            });
+        }
+
+        // I want to update only user phone number
+        // PATCH /api/users/{id}/phonenNumber
+        [HttpPatch("{id}/phoneNumber")]
+        public IActionResult UpdateUserPhoneNumber([FromRoute] Guid id, [FromBody] string phoneNumber)
+        {
+            return Ok(new
+            {
+                UserId = id,
+                PhoneNumber = phoneNumber
+            });
+        }
+
+        // DELETE/api/users/{id}
+        [HttpDelete("{id}")]
+        public IActionResult Deleteuser([FromRoute] Guid id)
+        {
+            return Ok(new
+            {
+                UserId = id,
+                Message = "User deleted Successfully.",
+            });
         }
     }
 }
