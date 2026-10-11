@@ -1,4 +1,6 @@
-using TwitterClone.Api.Data;
+using TwitterClone.Application.Interfaces;
+using TwitterClone.Application.Services;
+using TwitterClone.Infrastructure.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,9 +9,14 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 
-builder.Services.AddSingleton<UserRepository>();
 
-builder.Services.AddSingleton<TweetRepository>();
+// repository registration
+builder.Services.AddSingleton<IUserRepository,UserRepository>();
+builder.Services.AddScoped<IUserService, UserService>();
+
+
+builder.Services.AddSingleton<ITweetRepository, TweetRepository>();
+builder.Services.AddScoped<ITweetService, TweetService>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
