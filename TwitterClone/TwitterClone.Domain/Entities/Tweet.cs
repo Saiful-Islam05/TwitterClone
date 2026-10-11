@@ -43,8 +43,8 @@ namespace TwitterClone.Domain.Entities
 
         public void AddContent(Guid userId, string content)
         {
-            _userid = UserId;
-            _content = Content;
+            _userid = userId;
+            _content = content;
         }
         public override string DescribeRecord()
         {

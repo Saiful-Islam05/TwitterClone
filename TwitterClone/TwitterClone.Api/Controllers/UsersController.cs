@@ -1,69 +1,75 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using TwitterClone.Application.Dtos;
+using TwitterClone.Application.Interfaces;
 
 namespace TwitterClone.Api.Controllers
 {
-    [Route("api/[controller]")]
+    // api/users
     [ApiController]
+    [Route("api/[controller]")]
+    
     public class UsersController: ControllerBase
     {
-        public UsersController()
+        private readonly IUserService _userService;
+        public UsersController(IUserService userService)
         {
-
+            _userService = userService;
         }
+   
 
 
+        // api/users
         [HttpGet]
-        [Authorize]
+        [AllowAnonymous]
         public IActionResult GetUsers()
         {
-
-            return Ok(new List<object>
-            { 
-                new
-                {
-                    UserId = Guid.NewGuid(),
-                    UserName = "user1",
-                },
-                new
-                {
-                    UserId = Guid.NewGuid(),
-                    UserName = "user2",
-                },
-            });
+            return Ok(_userService.GetUsers());
         }
 
+
+        // api/users
         [HttpPost]
         [AllowAnonymous]
-        public IActionResult CreateUser()
+        public IActionResult CreateUser([FromBody] CreateUserDto createUserDto)
         {
-            return Ok(new
+            var createdUser = _userService.CreateUser(createUserDto);
+
+            if(createdUser is null)
             {
-                UserId = Guid.NewGuid(),
-                UserName = "newuser",
-            });
+                return BadRequest("A Error happen during create user.");
+            }
+
+            return Ok(createdUser);
         }
 
         // /api/users/{id}
         [HttpGet("{id}")]
         public IActionResult GetUserById([FromRoute] Guid id)
         {
-            return Ok(new
+            var user = _userService.GetUserById(id);
+
+            if(user is null)
             {
-                UserId = id,
-                UserName = "user" + id.ToString(),
-            });
+                return NotFound();
+            }
+
+            return Ok(user);
         }
 
         // PUT/api/users/{id}
         [HttpPut("{id}")]
-        public IActionResult UpdateUser([FromRoute] Guid id)
+        public IActionResult UpdateUser([FromRoute] Guid id, [FromBody] UpdateUserDto updateUserDto)
         {
-            return Ok(new
+            var user = _userService.UpdateUser(id, updateUserDto);
+
+            if(user == null)
             {
-                UserId = id,
-                UserName = "updateuser" + id.ToString()
-            });
+                return NotFound();
+            }
+
+
+           return Ok(user);
         }
 
         // I want to update only user phone number
@@ -80,13 +86,16 @@ namespace TwitterClone.Api.Controllers
 
         // DELETE/api/users/{id}
         [HttpDelete("{id}")]
-        public IActionResult Deleteuser([FromRoute] Guid id)
+        public IActionResult DeleteUser([FromRoute] Guid id)
         {
-            return Ok(new
+            var isDeleted = _userService.DeleteUser(id);
+
+            if(isDeleted==false)
             {
-                UserId = id,
-                Message = "User deleted Successfully.",
-            });
+                return NotFound();
+            }
+
+            return Ok(isDeleted);
         }
     }
 }
