@@ -1,30 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TwitterClone.Domain.Entities
+﻿namespace TwitterClone.Domain.Entities
 {
-    public class Like
+    public class Like : BaseEntity    
     {
-        private Guid _userId;
-        private Guid _tweetId;
-        private DateTime _likedAt;
+        private Guid _userId;         
+        private Guid _tweetId;        
+        private DateTime _likedAt;    
 
-        public Guid UserId
-        {
-            get { return _userId; }
-        }
+        public Guid UserId { get { return _userId; } }
+        public Guid TweetId { get { return _tweetId; } }
+        public DateTime LikedAt { get { return _likedAt; } }   
 
-        public Guid TweetId
-        {
-            get { return _tweetId; }
-        }
+        private Like() { }
 
-        public DateTime LikeedAt
+     
+        public Like(Guid userId, Guid tweetId) : base(userId)
         {
-            get { return _likedAt; }
+            _userId = userId;
+            _tweetId = tweetId;
+            _likedAt = DateTime.UtcNow;  
         }
     }
 }
