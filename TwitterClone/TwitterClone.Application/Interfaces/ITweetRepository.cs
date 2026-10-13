@@ -13,7 +13,7 @@ namespace TwitterClone.Application.Interfaces
 
         Tweet UpdateTweet(Tweet tweet);
 
-        Tweet GetTweetById(Guid id);
+        Tweet? GetTweetById(Guid id);
 
         bool DeleteTweet(Guid id);
 
