@@ -11,16 +11,15 @@ namespace TwitterClone.Application.Interfaces
     {
         TweetDto? CreateTweet(CreateTweetDto createTweetDto);
 
-        TweetDto GetTweetById(Guid id);
+       
+        TweetDto? GetTweetById(Guid id);
 
-        TweetDto UpdateTweet(Guid id, UpdateTweetDto updateTweetDto);
+       
+        TweetDto? UpdateTweet(Guid id, UpdateTweetDto updateTweetDto);
 
         bool DeleteTweet(Guid id);
 
-        List<TweetDto> GetTweets();
-
-
-
-
+      
+        List<TweetDto> GetTweets(Guid? userId = null);
     }
 }

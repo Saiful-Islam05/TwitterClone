@@ -1,36 +1,33 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TwitterClone.Domain.Entities
+﻿namespace TwitterClone.Domain.Entities
 {
-    public class Retweet
+    public class Retweet : BaseEntity
     {
-        private Guid _id;
-        private Guid _userId;
-        private Guid _tweetId;
-        private DateTime _retweetedAt;
+        private Guid _userId;                     
+        private Guid _tweetId;                   
+        private DateTime _retweetedAt;            
+        private string _comment = string.Empty;   
 
-        public Guid Id
+        public Guid UserId { get { return _userId; } }
+        public Guid TweetId { get { return _tweetId; } }
+        public DateTime RetweetedAt { get { return _retweetedAt; } }
+        public string Comment { get { return _comment; } }
+
+        private Retweet() { }   
+
+        
+        public Retweet(Guid userId, Guid tweetId, string comment = "") : base(userId)
         {
-            get { return _id; }
+            _userId = userId;
+            _tweetId = tweetId;
+            _comment = comment;
+            _retweetedAt = DateTime.UtcNow;
         }
 
-        public Guid UserId
+       
+        public void UpdateComment(string comment)
         {
-            get { return _userId; }
-        }
-
-        public Guid TweetId
-        {
-            get { return _tweetId; }
-        }
-
-        public DateTime RetweetedAt
-        {
-            get { return _retweetedAt; }
+            _comment = comment;
+            MarkAsModified(_userId);   
         }
     }
 }

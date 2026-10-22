@@ -10,7 +10,7 @@ namespace TwitterClone.Domain.Entities
     {
         private Guid _userId;
         private string _type;
-        private string _message;
+        private string _message = string.Empty;
         private bool _isRead;
 
         protected Notification(string notificationType) : base(Guid.NewGuid())
