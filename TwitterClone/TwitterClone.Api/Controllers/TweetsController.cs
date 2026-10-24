@@ -5,6 +5,8 @@ using TwitterClone.Application.Dtos;
 using TwitterClone.Domain.Entities;
 using TwitterClone.Application.Interfaces;
 using System.Runtime;
+using TwitterClone.Utilities.Extensions;
+using TwitterClone.Application.Generics;
 
 namespace TwitterClone.Api.Controllers
 {
@@ -32,6 +34,66 @@ namespace TwitterClone.Api.Controllers
         }
 
 
+
+        [HttpGet("extension-test")]
+        [AllowAnonymous]
+        public IActionResult ExtensionTest()
+        {
+            
+            string tag = "dotnet".ToHashtag();
+
+           
+            string alreadyTag = "#csharp".ToHashtag();
+
+           
+            bool isLong = "Learning ASP.NET Core".IsLong();
+
+            
+            var normalTweet = new Tweet("Hello world");
+            normalTweet.Likes = 50;
+
+           
+            var hotTweet = new Tweet("Learning ASP.NET Core");
+            hotTweet.Likes = 150;
+
+
+
+            var tweets = new List<Tweet>
+            {
+                new Tweet("First tweet"),
+                new Tweet("Second tweet")
+            };
+
+            var lastTweet = tweets.LastOrNull();
+
+
+            var names = new List<string> { "Saiful", "Rahim", "Karim" };
+            var lastName = names.LastOrNull();
+
+
+            var emptyNames = new List<string>();
+            var lastOfEmpty = emptyNames.LastOrNull();
+
+
+            return Ok(new
+            {
+                tag,                                          
+                alreadyTag,                                  
+                isLong,                                       
+                normalIsPopular = normalTweet.IsPopular(),    
+                hotIsPopular = hotTweet.IsPopular(),
+                
+                lastTweetContent = lastTweet?.Content,
+                lastName = lastName,
+                lastOfEmpty = lastOfEmpty
+            });
+        }
+
+
+
+
+
+
         // GET/api/tweets/{id}
         [HttpGet("{id}")]
         [AllowAnonymous]
@@ -41,11 +103,23 @@ namespace TwitterClone.Api.Controllers
 
             if (tweet == null)
             {
-                return NotFound();
+                return NotFound(new ApiResponse<TweetDto>
+                {
+                    Success = false,
+                    Data = null,
+                    Message = "Tweet not found."
+                });
             }
 
-            return Ok(tweet);
+            return Ok(new ApiResponse<TweetDto>
+            {
+                Success = true,
+                Data = tweet,
+                Message = "Tweet retrieved successfully."
+            });
         }
+
+
 
         // POST /api/tweets
         [HttpPost]
@@ -77,7 +151,7 @@ namespace TwitterClone.Api.Controllers
 
             return Ok(tweet);
         }
-
+        
 
         [HttpDelete("{id}")]
         public IActionResult DeleteTweet([FromRoute] Guid id)

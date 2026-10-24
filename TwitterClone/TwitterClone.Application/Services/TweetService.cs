@@ -2,6 +2,7 @@
 using TwitterClone.Application.Interfaces;
 using TwitterClone.Application.Mappings;
 using TwitterClone.Domain.Entities;
+using TwitterClone.Utilities.Extensions;
 
 namespace TwitterClone.Application.Services
 {
@@ -108,7 +109,7 @@ namespace TwitterClone.Application.Services
 
         private static bool IsValidContent(string content)
         {
-            return !string.IsNullOrWhiteSpace(content) && content.Length <= Tweet.MaxContentLength;
+            return !string.IsNullOrWhiteSpace(content) && content.Length <= Tweet.MaxContentLength && content.IsLong();
         }
     }
 }
