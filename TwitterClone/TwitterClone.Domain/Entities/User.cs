@@ -12,7 +12,8 @@ namespace TwitterClone.Domain.Entities
         private string _firstName = string.Empty;  
         private string _lastName = string.Empty;
         private string _email = string.Empty;
-        private string? _phoneNumber;              
+        private string? _phoneNumber;
+        private string _passwordHash;
 
         public User() : base(Guid.NewGuid())
         {
@@ -43,6 +44,12 @@ namespace TwitterClone.Domain.Entities
         {
             get { return _phoneNumber; }
             set { _phoneNumber = value; }
+        }
+
+        public string PasswordHash
+        {
+            get { return _passwordHash; }
+            set { _passwordHash = value; }
         }
 
         private List<Guid> _followers = new List<Guid>();
