@@ -1,5 +1,6 @@
 using TwitterClone.Application.Interfaces;      
-using TwitterClone.Application.Services;         
+using TwitterClone.Application.Services;
+using TwitterClone.Infrastructure;
 using TwitterClone.Infrastructure.Repositories;  
 
 var builder = WebApplication.CreateBuilder(args);
@@ -47,6 +48,8 @@ builder.Services.AddScoped<INotificationService, NotificationService>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddInfrastructure(builder.Configuration);
 
 var app = builder.Build();
 
