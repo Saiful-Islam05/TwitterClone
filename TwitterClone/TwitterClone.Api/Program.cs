@@ -1,6 +1,12 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Text;
+using TwitterClone.Application;
 using TwitterClone.Application.Interfaces;      
 using TwitterClone.Application.Services;
 using TwitterClone.Infrastructure;
+using TwitterClone.Infrastructure.Auth;
 using TwitterClone.Infrastructure.Repositories;  
 
 var builder = WebApplication.CreateBuilder(args);
@@ -49,6 +55,30 @@ builder.Services.AddScoped<INotificationService, NotificationService>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+var jwtSettings = builder.Configuration.GetSection("JwtSettings").Get<JwtSettings>();
+builder.Services.AddSingleton<JwtSettings>();
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.MapInboundClaims = false;
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidIssuer = jwtSettings.Issuer,
+            ValidateAudience = true,
+            ValidAudience = jwtSettings.Audience,
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Key)),
+            ValidateLifetime = true,
+            ClockSkew = TimeSpan.FromSeconds(30),
+            NameClaimType = JwtRegisteredClaimNames.Email
+        };
+    });
+
+
+// Clean architecture Layers: each layer reister its own services.
+builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration);
 
 var app = builder.Build();
@@ -61,6 +91,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 
