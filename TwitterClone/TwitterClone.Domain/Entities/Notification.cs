@@ -9,15 +9,22 @@ namespace TwitterClone.Domain.Entities
     public abstract class Notification : BaseEntity
     {
         private Guid _userId;
-        private string _type;
+        private string _type = string.Empty ;
         private string _message = string.Empty;
         private bool _isRead;
 
+
+        protected Notification() : base(Guid.NewGuid())
+        {
+
+        }
         protected Notification(string notificationType) : base(Guid.NewGuid())
         {
             _type = notificationType;
         }
 
+
+        public User? User { get; set; }
         public Guid UserId
         {
             get { return _userId; }
@@ -30,10 +37,10 @@ namespace TwitterClone.Domain.Entities
             set { _type = value; }
         }
 
-        protected string Message
+        public string Message
         {
             get { return _message; }
-            set { _message = value; }
+            protected set { _message = value; }
         }
 
         public bool IsRead

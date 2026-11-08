@@ -25,10 +25,10 @@ namespace TwitterClone.Infrastructure.Auth
         {
             // Business logic to generate JWT token for the user
 
-            var claims = new List<Claim>();
+            var claims = new List<Claim>()
             {
-                new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString());
-                new Claim(JwtRegisteredClaimNames.Email, user.Email);
+                new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
+                new Claim(JwtRegisteredClaimNames.Email, user.Email)
             };
 
             var expiryTime = DateTime.UtcNow.AddMinutes(_jwtSettings.ExpiryTimeInMinutes);

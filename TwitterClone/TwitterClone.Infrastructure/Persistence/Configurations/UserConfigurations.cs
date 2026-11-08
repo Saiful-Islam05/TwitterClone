@@ -14,6 +14,7 @@ namespace TwitterClone.Infrastructure.Persistence.Configurations
         public void Configure(EntityTypeBuilder<User> builder)
         {
             builder.HasKey(u => u.Id);
+            builder.ToTable("users");
 
             builder.Property(u => u.FirstName).IsRequired();
             builder.Property(u => u.LastName).IsRequired();

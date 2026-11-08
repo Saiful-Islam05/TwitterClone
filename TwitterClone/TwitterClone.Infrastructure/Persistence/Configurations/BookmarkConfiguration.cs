@@ -1,0 +1,23 @@
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using TwitterClone.Domain.Entities;
+
+namespace TwitterClone.Infrastructure.Persistence.Configurations
+{
+    public class BookmarkConfiguration : IEntityTypeConfiguration<Bookmark>
+    {
+        public void Configure(EntityTypeBuilder<Bookmark> builder)
+        {
+            builder.ToTable("bookmarks");
+            builder.HasKey(b => b.Id);
+
+            builder.Property(b => b.UserId).IsRequired();
+            builder.Property(b => b.TweetId).IsRequired();
+
+            builder.HasOne(b => b.User).WithMany().HasForeignKey(b => b.UserId).IsRequired();
+            builder.HasOne(b => b.Tweet).WithMany().HasForeignKey(b => b.TweetId).IsRequired();
+
+            builder.HasIndex(b => new { b.UserId, b.TweetId }).IsUnique();
+        }
+    }
+}

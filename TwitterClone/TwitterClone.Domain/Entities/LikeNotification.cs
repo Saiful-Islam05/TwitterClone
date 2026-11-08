@@ -8,6 +8,9 @@ namespace TwitterClone.Domain.Entities
 {
     public class LikeNotification : Notification
     {
+        private LikeNotification() : base("Like")
+        {
+        }
         public LikeNotification(Guid likeByUserId) : base("Like")
         {
             LikeByUserId = likeByUserId;

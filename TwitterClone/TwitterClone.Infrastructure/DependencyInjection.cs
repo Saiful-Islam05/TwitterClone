@@ -22,7 +22,7 @@ namespace TwitterClone.Infrastructure
 
             services.AddDbContext<TwitterCloneDbContext>(options =>
             {
-                options.UseNpgsql("Host=ep-red-wind-ax849eok-pooler.c-4.us-east-2.aws.neon.tech; Database=TwitterTest; Username=neondb_owner; Password=npg_Q4It5cJpfGzR; SSL Mode=VerifyFull; Channel Binding=Require;");
+                options.UseNpgsql(configuration.GetConnectionString("DefaultConnection"));
             });
 
             services.AddScoped<IUserRepository, UserRepository>();

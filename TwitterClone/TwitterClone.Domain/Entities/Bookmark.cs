@@ -28,7 +28,10 @@ namespace TwitterClone.Domain.Entities
             set { _tweetId = value; }
         }
 
-       public override string DescribeRecord()
+        public User? User { get; set; }
+        public Tweet? Tweet { get; set; }
+
+        public override string DescribeRecord()
         {
             var baseRecord = base.DescribeRecord();
             return $"{baseRecord}, UserId:{UserId},TweetId:{TweetId}";

@@ -6,15 +6,20 @@
         private Guid _receiverId;            
         private string _content = string.Empty;  
         private DateTime _sentAt;               
-        private bool _isRead;                   
+        private bool _isRead;
 
+        private Message() { }
+
+
+        public User? Sender { get; private set; }
+        public User? Receiver { get; private set; }
         public Guid SenderId { get { return _senderId; } }
         public Guid ReceiverId { get { return _receiverId; } }
         public string Content { get { return _content; } }
         public DateTime SentAt { get { return _sentAt; } }
         public bool IsRead { get { return _isRead; } }
 
-        private Message() { }   
+       
 
        
         public Message(Guid senderId, Guid receiverId, string content) : base(senderId)

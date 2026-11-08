@@ -20,7 +20,7 @@ namespace TwitterClone.Infrastructure.Repositories
             _context = context;
         }
 
-      
+        private readonly List<User> _users = new List<User>();
         public User AddUser(User user)
         {
             //_users.Add(user);

@@ -23,12 +23,22 @@ namespace TwitterClone.Infrastructure.Persistence
         public DbSet<Message> Messages { get; set; }
         public DbSet<Follow> Follows { get; set; }
         public DbSet<Bookmark> Bookmarks { get; set; }
+        public DbSet<Comment> Comments { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(TwitterCloneDbContext).Assembly);
+
+            // Notification inheritance (TPH)
+            modelBuilder.Entity<Notification>()
+                .HasDiscriminator(n => n.Type)
+                .HasValue<CommentNotification>("Comment")
+                .HasValue<FriendRequestNotification>("FriendRequest")
+                .HasValue<LikeNotification>("Like")
+                .HasValue<MentionNotification>("Mention")
+                .HasValue<SystemNotification>("System");
         }
     }
 }
