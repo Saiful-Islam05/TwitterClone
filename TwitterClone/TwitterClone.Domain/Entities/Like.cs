@@ -4,13 +4,17 @@
     {
         private Guid _userId;         
         private Guid _tweetId;        
-        private DateTime _likedAt;    
+        private DateTime _likedAt;
+
+        private Like() { }
 
         public Guid UserId { get { return _userId; } }
         public Guid TweetId { get { return _tweetId; } }
         public DateTime LikedAt { get { return _likedAt; } }   
+        public User? user { get; private set;}
+        public Tweet? tweet { get; private set; }
 
-        private Like() { }
+       
 
      
         public Like(Guid userId, Guid tweetId) : base(userId)

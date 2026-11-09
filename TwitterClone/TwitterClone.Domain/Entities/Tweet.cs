@@ -14,6 +14,10 @@ namespace TwitterClone.Domain.Entities
 
         public static int MaxContentLength = 200;
 
+
+        // EF Core-এর জন্য
+        private Tweet() { }
+
         public Tweet(string content) : base(Guid.NewGuid())
         {
             _content = content;
@@ -30,6 +34,8 @@ namespace TwitterClone.Domain.Entities
             get { return _userid; }
             set { _userid = value; }
         }
+
+        public User? user {get; set;}
 
         public string Content
         {

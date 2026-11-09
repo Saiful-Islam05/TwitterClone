@@ -17,6 +17,9 @@ namespace TwitterClone.Domain.Entities
         }
 
 
+        public User? Follower { get; set; }
+        public User? Following { get; set; }
+
         public Guid FollowerId
         {
             get { return _followerId; }
