@@ -19,6 +19,8 @@ namespace TwitterClone.Application.Interfaces
         List<User> GetUsers();
 
         User? GetUserByEmail(string email);
+       void AddUserRole(UserRole userRole);
+       void RemoveUserRole(UserRole userRole);
 
 
     }

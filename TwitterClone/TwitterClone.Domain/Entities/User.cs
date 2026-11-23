@@ -8,19 +8,17 @@ namespace TwitterClone.Domain.Entities
 {
     public class User : BaseEntity, IFollowable, INotifiable
     {
-        
-        private string _firstName = string.Empty;  
-        private string _lastName = string.Empty;
-        private string _email = string.Empty;
-        private string? _phoneNumber;
-        private string _passwordHash;
-
         public User() : base(Guid.NewGuid())
         {
 
         }
+        private string _firstName = string.Empty;  
+        private string _lastName = string.Empty;
+        private string _email = string.Empty;
+        private string? _phoneNumber;
+        private string? _passwordHash;
 
-      
+
         public string FirstName
         {
             get { return _firstName; }
@@ -51,6 +49,8 @@ namespace TwitterClone.Domain.Entities
             get { return _passwordHash; }
             set { _passwordHash = value; }
         }
+
+        public List<UserRole>? UserRoles { get; set; }
 
         private List<Guid> _followers = new List<Guid>();
         public List<Guid> _inCommingNotification = new List<Guid>();
