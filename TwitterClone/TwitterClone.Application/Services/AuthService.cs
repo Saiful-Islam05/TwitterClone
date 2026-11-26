@@ -26,25 +26,44 @@ namespace TwitterClone.Application.Services
         {
             var user = _userRepository.GetUserByEmail(loginDto.Email);
 
-            var userAuthorized = _passwordHasher.VerifyPassword(user.ToDto(), loginDto.Password, user.PasswordHash);
-
-            if (userAuthorized)
-            {
-                var (token, expiryTime) = _tokenService.GetToken(user.ToDto());
-
-                return new AuthResponseDto
-                {
-                    AccessToken = token,
-                    ExpiryAt = expiryTime,
-                    UserDto = user.ToDto()
-                };
-            }
-            else
-            {
+            if (user is null)
                 return null;
+
+            var userDto = user.ToDto();
+
+            var userAuthorized = _passwordHasher.VerifyPassword(userDto, loginDto.Password, user.PasswordHash);
+
+            if (!userAuthorized)
+                return null;
+
+            var (token, expiryTime) = _tokenService.GetToken(userDto);
+
+            return new AuthResponseDto
+            {
+                AccessToken = token,
+                ExpiryAt = expiryTime,
+                UserDto = userDto
+            };
+        }
+
+
+        public bool ChangePassword(Guid userId, ChangePasswordDto changePasswordDto)
+        {
+            var user = _userRepository.GetUserById(userId);
+
+            if (user is null ||
+                !_passwordHasher.VerifyPassword(user.ToDto(), changePasswordDto.CurrentPassword, user.PasswordHash))
+            {
+                return false;
             }
 
+            user.PasswordHash = _passwordHasher.Hash(user.ToDto(), changePasswordDto.NewPassword);
+            user.MarkAsModified();
+            _userRepository.UpdateUser(user);
 
+            return true;
         }
+
+
     }
 }

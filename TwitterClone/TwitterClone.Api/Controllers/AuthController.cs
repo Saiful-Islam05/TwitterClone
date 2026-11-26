@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TwitterClone.Application.Dtos;
 using TwitterClone.Application.Interfaces;
+using TwitterClone.Api.Extensions;
 
 namespace TwitterClone.Api.Controllers
 {
@@ -33,5 +34,23 @@ namespace TwitterClone.Api.Controllers
                 return Unauthorized();
             }
         }
+
+        // POST /api/auth/change-password
+        [Authorize]
+        [HttpPost("change-password")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public IActionResult ChangePassword([FromBody] ChangePasswordDto changePasswordDto)
+        {
+            var changed = _authService.ChangePassword(User.GetUserId(), changePasswordDto);
+
+            if (!changed)
+            {
+                return BadRequest(new { field = "currentPassword", message = "Current password is incorrect." });
+            }
+
+            return NoContent();
+        }
+
     }
 }

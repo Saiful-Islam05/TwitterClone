@@ -9,17 +9,23 @@ using TwitterClone.Domain.Entities;
 
 namespace TwitterClone.Infrastructure.Persistence.Configurations
 {
-    public class UserConfigurations : IEntityTypeConfiguration<User>
+    public class UserConfiguration : IEntityTypeConfiguration<User>
     {
         public void Configure(EntityTypeBuilder<User> builder)
         {
             builder.HasKey(u => u.Id);
-            builder.ToTable("users");
 
             builder.Property(u => u.FirstName).IsRequired();
             builder.Property(u => u.LastName).IsRequired();
             builder.Property(u => u.Email).IsRequired();
             builder.Property(u => u.PasswordHash).IsRequired();
+
+            builder.HasMany(u => u.UserRoles).WithOne(ur => ur.User)
+               .HasForeignKey(u => u.UserId);
+
+            builder.Property(u => u.Username).IsRequired().HasMaxLength(15);
+            builder.Property(u => u.Bio).HasMaxLength(160);
+            builder.Property(u => u.AvatarUrl).HasMaxLength(200);
 
             builder.HasIndex(u => u.Email).IsUnique();
 
